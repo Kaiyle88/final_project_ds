@@ -222,79 +222,82 @@ pre code {
 <p>Starbucks has become something of a global phenomenon with how many people order Starbucks everyday. The question no one seems to be asking is what are the nutritional values of your favorite Starbucks drinks. As well as what category of Starbucks beverages are the best for you?</p>
 <p>-Do Starbucks drinks contain too much sugar for you daily intake?</p>
 <p>-Do the simple teas provide less sugar and fat then the signature drinks do?</p>
-<p>-Is the caffeine and saturated fats in their drinks acceptable for regular health habits?</p>
+<p>-Is the Cholesterol in their drinks acceptable for regular health habits?</p>
+<p>Our data set explores 221 different drinks with characteristics like saturated fat, caffeine, sugars, and protein percentage.</p>
 <p><strong>Prerequisites</strong></p>
 <!-- rnb-text-end -->
 <!-- rnb-chunk-begin -->
-<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxubGlicmFyeSh0aWR5dmVyc2UpXG5gYGAifQ== -->
-<pre class="r"><code>library(tidyverse)</code></pre>
+<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxubGlicmFyeSh0aWR5dmVyc2UpXG5saWJyYXJ5KGRwbHlyKVxuXG5gYGAifQ== -->
+<pre class="r"><code>library(tidyverse)
+library(dplyr)
+</code></pre>
 <!-- rnb-source-end -->
-<!-- rnb-output-begin eyJkYXRhIjoiUmVnaXN0ZXJlZCBTMyBtZXRob2RzIG92ZXJ3cml0dGVuIGJ5ICdkYnBseXInOlxuICBtZXRob2QgICAgICAgICBmcm9tXG4gIHByaW50LnRibF9sYXp5ICAgICBcbiAgcHJpbnQudGJsX3NxbCAgICAgIFxuLS0gQXR0YWNoaW5nIHBhY2thZ2VzIC0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLSB0aWR5dmVyc2UgMS4zLjEgLS1cbnYgZ2dwbG90MiAzLjMuNSAgICAgdiBwdXJyciAgIDAuMy40XG52IHRpYmJsZSAgMy4xLjQgICAgIHYgZHBseXIgICAxLjAuN1xudiB0aWR5ciAgIDEuMS4zICAgICB2IHN0cmluZ3IgMS40LjBcbnYgcmVhZHIgICAyLjAuMSAgICAgdiBmb3JjYXRzIDAuNS4xXG4tLSBDb25mbGljdHMgLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tIHRpZHl2ZXJzZV9jb25mbGljdHMoKSAtLVxueCBkcGx5cjo6ZmlsdGVyKCkgbWFza3Mgc3RhdHM6OmZpbHRlcigpXG54IGRwbHlyOjpsYWcoKSAgICBtYXNrcyBzdGF0czo6bGFnKClcbiJ9 -->
-<pre><code>Registered S3 methods overwritten by &#39;dbplyr&#39;:
-  method         from
-  print.tbl_lazy     
-  print.tbl_sql      
--- Attaching packages ------------------------------------------------------------------------ tidyverse 1.3.1 --
-v ggplot2 3.3.5     v purrr   0.3.4
-v tibble  3.1.4     v dplyr   1.0.7
-v tidyr   1.1.3     v stringr 1.4.0
-v readr   2.0.1     v forcats 0.5.1
--- Conflicts --------------------------------------------------------------------------- tidyverse_conflicts() --
-x dplyr::filter() masks stats::filter()
-x dplyr::lag()    masks stats::lag()</code></pre>
-<!-- rnb-output-end -->
-<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxubGlicmFyeShkcGx5cilcbmxpYnJhcnkoZ2dwbG90MilcbmxpYnJhcnkoc2NhbGVzKVxuYGBgIn0= -->
-<pre class="r"><code>library(dplyr)
-library(ggplot2)
-library(scales)</code></pre>
-<!-- rnb-source-end -->
-<!-- rnb-output-begin eyJkYXRhIjoiXG5BdHRhY2hpbmcgcGFja2FnZTog4oCYc2NhbGVz4oCZXG5cblRoZSBmb2xsb3dpbmcgb2JqZWN0IGlzIG1hc2tlZCBmcm9tIOKAmHBhY2thZ2U6cHVycnLigJk6XG5cbiAgICBkaXNjYXJkXG5cblRoZSBmb2xsb3dpbmcgb2JqZWN0IGlzIG1hc2tlZCBmcm9tIOKAmHBhY2thZ2U6cmVhZHLigJk6XG5cbiAgICBjb2xfZmFjdG9yXG4ifQ== -->
-<pre><code>
-Attaching package: ‘scales’
-
-The following object is masked from ‘package:purrr’:
-
-    discard
-
-The following object is masked from ‘package:readr’:
-
-    col_factor</code></pre>
-<!-- rnb-output-end -->
 <!-- rnb-chunk-end -->
 <!-- rnb-text-begin -->
 <p><strong>dataset</strong></p>
 <!-- rnb-text-end -->
 <!-- rnb-chunk-begin -->
-<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuc3RhcmJ1Y2tzIDwtIHJlYWRfY3N2KFwiaHR0cHM6Ly9yYXcuZ2l0aHVidXNlcmNvbnRlbnQuY29tL3JlaXNhbmFyL2RhdGFzZXRzL21hc3Rlci9zdGFyYnVja3MuY3N2XCIpXG5gYGAifQ== -->
-<pre class="r"><code>starbucks &lt;- read_csv(&quot;https://raw.githubusercontent.com/reisanar/datasets/master/starbucks.csv&quot;)</code></pre>
+<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuc3RhcmJ1Y2tzIDwtIHJlYWQuY3N2KCcuLi9kYXRhL3N0YXJidWNrcy5jc3YnKVxuYGBgIn0= -->
+<pre class="r"><code>starbucks &lt;- read.csv(&#39;../data/starbucks.csv&#39;)</code></pre>
 <!-- rnb-source-end -->
-<!-- rnb-output-begin eyJkYXRhIjoiUm93czogMjQyIENvbHVtbnM6IDE4XG4tLSBDb2x1bW4gc3BlY2lmaWNhdGlvbiAtLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLVxuRGVsaW1pdGVyOiBcIixcIlxuY2hyICg5KTogQmV2ZXJhZ2VfY2F0ZWdvcnksIEJldmVyYWdlLCBCZXZlcmFnZV9wcmVwLCBUb3RhbCBGYXQgKGcpLCBWaXRhbWluIEEgKCUgRFYpLCBWaXRhbWluIEMgKCUgRFYpLCBDYWxjaS4uLlxuZGJsICg5KTogQ2Fsb3JpZXMsIFRyYW5zIEZhdCAoZyksIFNhdHVyYXRlZCBGYXQgKGcpLCBTb2RpdW0gKG1nKSwgVG90YWwgQ2FyYm9oeWRyYXRlcyAoZyksIENob2xlc3Rlcm9sIChtZyksIC4uLlxuXG5pIFVzZSBgc3BlYygpYCB0byByZXRyaWV2ZSB0aGUgZnVsbCBjb2x1bW4gc3BlY2lmaWNhdGlvbiBmb3IgdGhpcyBkYXRhLlxuaSBTcGVjaWZ5IHRoZSBjb2x1bW4gdHlwZXMgb3Igc2V0IGBzaG93X2NvbF90eXBlcyA9IEZBTFNFYCB0byBxdWlldCB0aGlzIG1lc3NhZ2UuXG4ifQ== -->
-<pre><code>Rows: 242 Columns: 18
--- Column specification -----------------------------------------------------------------------------------------
-Delimiter: &quot;,&quot;
-chr (9): Beverage_category, Beverage, Beverage_prep, Total Fat (g), Vitamin A (% DV), Vitamin C (% DV), Calci...
-dbl (9): Calories, Trans Fat (g), Saturated Fat (g), Sodium (mg), Total Carbohydrates (g), Cholesterol (mg), ...
-
-i Use `spec()` to retrieve the full column specification for this data.
-i Specify the column types or set `show_col_types = FALSE` to quiet this message.</code></pre>
-<!-- rnb-output-end -->
 <!-- rnb-chunk-end -->
 <!-- rnb-text-begin -->
 <p><strong>Uni-variate Exploration</strong></p>
+<p>Average sugar amount in grams - Everyone loves their favorite frapp from Starbucks until they realize its actually unhealthy, In terms of added sugars in grams frappucinos have almost double the recommended healthy amount per day of 24 grams for women and 36 grams for men.</p>
+<p><strong>Sugars</strong></p>
 <!-- rnb-text-end -->
 <!-- rnb-chunk-begin -->
-<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxucyA8LSBzdGFyYnVja3MgJT4lXG4gIGdyb3VwX2J5KEJldmVyYWdlX2NhdGVnb3J5KSAlPiVcbiAgc3VtbWFyaXNlKGF2Z3N1ZyA8LSBtZWFuKGBTdWdhcnMgKGcpYCwgbmEucm0gPSBUUlVFKSlcbiAgXG4gIFxuc1xuYGBgIn0= -->
+<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxucyA8LSBzdGFyYnVja3MgJT4lXG4gIGdyb3VwX2J5KEJldmVyYWdlX2NhdGVnb3J5KSAlPiVcbiAgc3VtbWFyaXNlKGF2Z3N1ZyA8LSBtZWFuKFN1Z2Fycy4uZy4sIG5hLnJtID0gVFJVRSkpXG5zXG5gYGAifQ== -->
 <pre class="r"><code>s &lt;- starbucks %&gt;%
   group_by(Beverage_category) %&gt;%
-  summarise(avgsug &lt;- mean(`Sugars (g)`, na.rm = TRUE))
-  
-  
+  summarise(avgsug &lt;- mean(Sugars..g., na.rm = TRUE))
 s</code></pre>
 <!-- rnb-source-end -->
-<!-- rnb-frame-begin eyJtZXRhZGF0YSI6eyJjbGFzc2VzIjpbInRibF9kZiIsInRibCIsImRhdGEuZnJhbWUiXSwibnJvdyI6OSwibmNvbCI6Miwic3VtbWFyeSI6eyJBIHRpYmJsZSI6WyI5IHggMiJdfX0sInJkZiI6Ikg0c0lBQUFBQUFBQUJvMVN6V29iTVJDV045NkVOU1FraEJJQ1BZajJrcFI0U1YwQy9VbkxZaWVsQmRPVzJJSGNtcWtzeTR0M3BVWFNwaitubkh2SWM1UVdDbjJGdE1mbUtYTHRQYmU0a2kxQnUxRG9vTldPWnI3Uk42T1pnNzJqZTQyakJrSm9EdFZyTlRRWEdoWE5kMTdkYmUyMEVLb0g1bFJEZFJUWi96dURXaldLTlM2YkwzS090VTRHU3FVRTc2dENVcVVFM3BNcEh5dm5udStJNFpCU2hFN3Q2ZVpUQ1VWUkVwSnljZjRWdHpQS0IzU0Evd3NqdjMvS1BlYlczNWh1eWthNmV0dU0vMFp2QkdQSzhYTmlQRzE2UWlVdzZwTmI3NldNZ3k0bC9VZjJVUzhYUW85U0V6RWpYdW5EQjh2WXArQ1JDQzFaWkxKOXRYWDdwVHhIVHBMdXg4OUd2aVRQSHExK015dEpkZzZ0SkErZHY5UDlhZVFpYVpPeis1ZG5ENUluTDM3OE1xdnk3aUdIM0xKUDN6eHd4aFZmeUdzQ21qSWgzenZISFRoaHFtUjR0NGx6Q256anVGY3lrQXB2c00zakxjd2hsamwralBzSGgvdWJGWjVJaXJleDUxcTBYS2RtbTB3bVY5V0VpTzIzUzhnYkd3UFFFQThsMkE2aDYwcklnaWgwS3JnSkN1d0VoWlhnbXF3WWxrdHVNeGsweWFqazQyWnIyekpNL1ROWmRIcjBoeDdNT0lPSnV5djA4MGM1UzdtZmhqQ0ROelJ6aHlWVDhyVGl1RENkMUw0VVkxV3hGaG84cmtGRTVpM1Q0dEQxYjk3RVZWSTZBd0FBIn0= -->
+<!-- rnb-frame-begin eyJtZXRhZGF0YSI6eyJjbGFzc2VzIjpbInRibF9kZiIsInRibCIsImRhdGEuZnJhbWUiXSwibnJvdyI6OSwibmNvbCI6Miwic3VtbWFyeSI6eyJBIHRpYmJsZSI6WyI5IHggMiJdfX0sInJkZiI6Ikg0c0lBQUFBQUFBQUJvMVNUVXNjUVJEdFhYY01zK0FYRWtMQVE2TVhBKzZRR0NTRVJCaDNOUmhZVU53VnZFazUyOXM3N0V6MzBOMmpTVTVlOWVRZjhDNEtRdjZDWHMzZGYrTE50WHRtR3VLQVlERWYxYTllOWF2cTZwMzF2Yy8xdlRwQ2FBelZLaFUwNW1nWGpiZTJQeTJ2TENOVXErcFZCZFdRYS82L05HdFdPd2FjMXE5YkJONjFJcEF5RFBDR1RBU1JrdU4xRWJLaExNTGpMZDd2RTVJbElEVDNRMENTcEVFUU1uNXpqWnNSWVQzU3c2L2lpTnVMMkhMbW4zUGFJUjJvOG02NS90dk9BSWFFNForQmpqVEpJUkZBaVMzdWZTZWtERlFxeUF2VnU1MlljelVJZFVZdVBOT0ZQMGF4UzhBeUVabzBRZi9qdzlMQ2xyaEJoZm50MDB0dFYvN210OW0vK3ZIOWxWMWovcGY3ODVQNzgxTy8xYjdUOXM5dm51WDh0Y3VNWHpwM2gwR2NxVTluWjUrRE03YVIvUUFVb1Z6OExnS0xjRWhsU3ZIM0JvNEpzTVZPU2tGSXo2UGVFbWJnaVJpdjR1N083c2FIa29vcitKRm5sU2FNMHJIK2pFYWpoM0k1Z1psMlVZNEY2ejFRNFBVRlpQTjVMS1c4NFlrS09kTkpWWE4vbkZKeVJaU0FxWlNaU25xTllKQ3lZZU9yRWNqQ3VVMFV2dnVmWDgwbHE2TmlLOGRlUHNKb3lPeFZjQ0k0SUZHeG1OUWRadzE3aVI2anNwMW9WSHFLSzdDOGVzQWppMlM5b2NjbnhGZnZIRGNEQUFBPSJ9 -->
 <div data-pagedtable="false">
 <script data-pagedtable-source type="application/json">
-{"columns":[{"label":["Beverage_category"],"name":[1],"type":["chr"],"align":["left"]},{"label":["avgsug <- mean(`Sugars (g)`, na.rm = TRUE)"],"name":[2],"type":["dbl"],"align":["right"]}],"data":[{"1":"Classic Espresso Drinks","2":"16.96552"},{"1":"Coffee","2":"0.00000"},{"1":"Frappuccino® Blended Coffee","2":"57.08333"},{"1":"Frappuccino® Blended Crème","2":"48.46154"},{"1":"Frappuccino® Light Blended Coffee","2":"32.41667"},{"1":"Shaken Iced Beverages","2":"26.00000"},{"1":"Signature Espresso Drinks","2":"38.60000"},{"1":"Smoothies","2":"36.77778"},{"1":"Tazo® Tea Drinks","2":"30.30769"}],"options":{"columns":{"min":{},"max":[10],"total":[2]},"rows":{"min":[10],"max":[10],"total":[9]},"pages":{}}}
+{"columns":[{"label":["Beverage_category"],"name":[1],"type":["chr"],"align":["left"]},{"label":["avgsug <- mean(Sugars..g., na.rm = TRUE)"],"name":[2],"type":["dbl"],"align":["right"]}],"data":[{"1":"Classic Espresso Drinks","2":"16.96552"},{"1":"Coffee","2":"0.00000"},{"1":"FrappuccinoÂ® Blended Coffee","2":"57.08333"},{"1":"FrappuccinoÂ® Blended CrÃ¨me","2":"48.46154"},{"1":"FrappuccinoÂ® Light Blended Coffee","2":"32.41667"},{"1":"Shaken Iced Beverages","2":"23.84615"},{"1":"Signature Espresso Drinks","2":"38.60000"},{"1":"Smoothies","2":"37.12500"},{"1":"TazoÂ® Tea Drinks","2":"35.33333"}],"options":{"columns":{"min":{},"max":[10],"total":[2]},"rows":{"min":[10],"max":[10],"total":[9]},"pages":{}}}
+  </script>
+</div>
+<!-- rnb-frame-end -->
+<!-- rnb-chunk-end -->
+<!-- rnb-text-begin -->
+<p><strong>Cholesterol</strong></p>
+<p>Taking a look at the average cholesterol count in their drinks can easily contribute to early heart disease, starting your day with 42 mg of cholesterol is not a great start to your day. The recommended amount being approx 200 mg and even that isn’t healthy. Even if you were to start with something like a tea drink it can contribute to long term health effects like heart disease.</p>
+<!-- rnb-text-end -->
+<!-- rnb-chunk-begin -->
+<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxucyA8LSBzdGFyYnVja3MgJT4lXG4gIGdyb3VwX2J5KEJldmVyYWdlX2NhdGVnb3J5KSAlPiVcbiAgc3VtbWFyaXNlKGF2Z2Nob2wgPC0gbWVhbihDaG9sZXN0ZXJvbC4ubWcuKSlcbnNcbmBgYCJ9 -->
+<pre class="r"><code>s &lt;- starbucks %&gt;%
+  group_by(Beverage_category) %&gt;%
+  summarise(avgchol &lt;- mean(Cholesterol..mg.))
+s</code></pre>
+<!-- rnb-source-end -->
+<!-- rnb-frame-begin eyJtZXRhZGF0YSI6eyJjbGFzc2VzIjpbInRibF9kZiIsInRibCIsImRhdGEuZnJhbWUiXSwibnJvdyI6OSwibmNvbCI6Miwic3VtbWFyeSI6eyJBIHRpYmJsZSI6WyI5IHggMiJdfX0sInJkZiI6Ikg0c0lBQUFBQUFBQUJvMVN6VTdiUUJEZWhCamtTRUZCRlVKSU9iaGNVZzZ4eXArVVE1Rk1BaFVWclZRUkR0em9aak94cmRpNzdub1RXazY4QUR3SHA2clAwQjQ0Y09xZEd6d0R2Wkh1MnJzU1dFTHFTdmJPZk4vTWZqTTdlN2g3dkZFOXJpS0VabENsVkVJemxqVFJiUGZ6MnZyV09rS1ZzdlJLcUlKc3RYK1RVYStrb2NDNi9HeE5MSFVqbktZaGNmYlNoRU9hTW1lWGgzU1VhbnEyeTRaRGdDd0JvY1o3anBOa1RFaEkyYThmVGljQ09vQ0I4MTh4L1BkVmJHSlduc2Q4RFAxQUZFL0w5UmQ3QVI0QmRUNFF5WFJnQWh6N1lJcGI3b1UreFdMTTRZWHE3VjdNbUFoQ21aRUxMeHpoTTZWNEJOaEVJalN2U0cremQvdnpZdnNHNmVWOStuUGQrSHJkOFBZZm12MUpzKy90ZURuZTF2d2UyVkRMTy9pUys1M0w5dDFsKzc1dzd4YkZjYVpleis0K0J4ZE1JeWNFQy9BWi82NkoxM2ppazRCRnpydVdFd09tYjdyU2dWUUFaNUhyeHI2N1dqamU1dXpVTlJJMUpYRXVmOVBwOUcreERxTEdyT3N3WUhXQUJYYUhIR2VEZVN5a3pMRkVoSXpLcExKNk9GWWh1Y1FMUUgxTVZTV0RGZ25HZE5SYWU2c1VNajVmTlczYlQreHlybG1lNnJNczgreUEraUUxajhDS2NCOGk3Y3pMbHJPTzNVUU9VSmhXSkpxNmdnbHM0cXFFUlFiSm1rT1Avd0RlMlQ2dU1RTUFBQT09In0= -->
+<div data-pagedtable="false">
+<script data-pagedtable-source type="application/json">
+{"columns":[{"label":["Beverage_category"],"name":[1],"type":["chr"],"align":["left"]},{"label":["avgchol <- mean(Cholesterol..mg.)"],"name":[2],"type":["dbl"],"align":["right"]}],"data":[{"1":"Classic Espresso Drinks","2":"20.32759"},{"1":"Coffee","2":"0.00000"},{"1":"FrappuccinoÂ® Blended Coffee","2":"59.63889"},{"1":"FrappuccinoÂ® Blended CrÃ¨me","2":"49.92308"},{"1":"FrappuccinoÂ® Light Blended Coffee","2":"34.50000"},{"1":"Shaken Iced Beverages","2":"24.00000"},{"1":"Signature Espresso Drinks","2":"42.77500"},{"1":"Smoothies","2":"54.75000"},{"1":"TazoÂ® Tea Drinks","2":"37.11111"}],"options":{"columns":{"min":{},"max":[10],"total":[2]},"rows":{"min":[10],"max":[10],"total":[9]},"pages":{}}}
+  </script>
+</div>
+<!-- rnb-frame-end -->
+<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuTkFcbmBgYCJ9 -->
+<pre class="r"><code>NA</code></pre>
+<!-- rnb-source-end -->
+<!-- rnb-chunk-end -->
+<!-- rnb-text-begin -->
+<p><strong>Caffeine</strong></p>
+<p>Caffeine being most peoples concern when it comes to health concerns of coffee the averages stay pretty low for everything other than just their regular coffee. The average healthy adult generally is safe to consume 200 mg of caffeine a day so anything more than 1 cup a day can be unsafe.</p>
+<!-- rnb-text-end -->
+<!-- rnb-chunk-begin -->
+<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxucyA8LSBzdGFyYnVja3MgJT4lXG4gIGdyb3VwX2J5KEJldmVyYWdlX2NhdGVnb3J5KSAlPiVcbiAgc3VtbWFyaXNlKGF2Z2NhZiA8LSBtZWFuKENhZmZlaW5lLi5tZy4sIG5hLnJtID0gVFJVRSkpXG5zXG5gYGAifQ== -->
+<pre class="r"><code>s &lt;- starbucks %&gt;%
+  group_by(Beverage_category) %&gt;%
+  summarise(avgcaf &lt;- mean(Caffeine..mg., na.rm = TRUE))
+s</code></pre>
+<!-- rnb-source-end -->
+<!-- rnb-frame-begin eyJtZXRhZGF0YSI6eyJjbGFzc2VzIjpbInRibF9kZiIsInRibCIsImRhdGEuZnJhbWUiXSwibnJvdyI6OSwibmNvbCI6Miwic3VtbWFyeSI6eyJBIHRpYmJsZSI6WyI5IHggMiJdfX0sInJkZiI6Ikg0c0lBQUFBQUFBQUJvMVN6MHNiUVJSK2lZbGxBMHBFV2hGNkdIcXExQ3hFRVN5MHNCZ1ZoQjVLRWlHRlVubE9KcHNodXpQTDdNUmZKdytlL1JlOEZnWC9DUHVubEY1NzdjMTBabmNIN0lMUUI4TzgrYjczNW52dnpYUjNCNXVOUVFNQTVxQldxY0JjM2JndzMvbmMzdGphQUtoVnpha0NOZkRzZm1haWxvMWp3YVpaWGtHc2RDSk1VMDdKWHBvb2xxYVM3Q291Sm1sQnozZmthTVJZbGdEd2VsOWhra3dwNVVJKzNKT2RpSWtoRzVML2lsRS92c2N1NXMyL01aOTRPTmJsMjNMOWw3MHhUcGdnQjlRd08reUVLUXlaSzI2MXgwT0JlcXJZTTlWN3ZWaEtQZVltSXhkZTZ1T0ZWZXd6ZEpFQWk1WU12bDN4MzRQOW0wQjl0Vk9FNEV0NnZmM3orajBVRmd4K0hWb0xVTjBhdXd1Nlp6bis2akxmRDdZeXZqVDN1c0E0VTI5bXM4L0JKZGZJRVVYTlFxbk9DK0lkbm9RVVIrUkRpOFFNeGRzT21sRnd3WHcvRHYxMUl0QlhNZmxJK3QzRHZiV1NrS2ZrcWUvRUZxeVlyV3MybS8wcFYwVHRneGNWT2JBeFJJMytTR0gyUkkrbGxCY3kwVndLazFTMVg2aGVTcTZvRXRDY0NsdkpzRVhIVXpGcHRkdFdJZU56V3loODc0bGZ6VFdycytLdXV2dUFUSVJtQXE3NENJOVpWQndXVGN0WngzNWlubEs3Vmd5YStscHFkSEVOS2lPSFpNM0I0MSt3SlZDY093TUFBQT09In0= -->
+<div data-pagedtable="false">
+<script data-pagedtable-source type="application/json">
+{"columns":[{"label":["Beverage_category"],"name":[1],"type":["chr"],"align":["left"]},{"label":["avgcaf <- mean(Caffeine..mg., na.rm = TRUE)"],"name":[2],"type":["dbl"],"align":["right"]}],"data":[{"1":"Classic Espresso Drinks","2":"122.06897"},{"1":"Coffee","2":"293.75000"},{"1":"FrappuccinoÂ® Blended Coffee","2":"101.80556"},{"1":"FrappuccinoÂ® Blended CrÃ¨me","2":"0.00000"},{"1":"FrappuccinoÂ® Light Blended Coffee","2":"99.58333"},{"1":"Shaken Iced Beverages","2":"139.58333"},{"1":"Signature Espresso Drinks","2":"73.87500"},{"1":"Smoothies","2":"5.62500"},{"1":"TazoÂ® Tea Drinks","2":"50.41667"}],"options":{"columns":{"min":{},"max":[10],"total":[2]},"rows":{"min":[10],"max":[10],"total":[9]},"pages":{}}}
   </script>
 </div>
 <!-- rnb-frame-end -->
@@ -306,7 +309,7 @@ s</code></pre>
 <p><em>Make use of your knowledge of Markdown to appropriately typeset this report!</em></p>
 <!-- rnb-text-end -->
 
-<div id="rmd-source-code">LS0tDQp0aXRsZTogIkZpbmFsIFJlcG9ydCBmb3IgSW50cm8gdG8gRGF0YSBTY2llbmNlIg0Kb3V0cHV0OiBodG1sX25vdGVib29rDQpOYW1lOiAiS3lsZSBNdXJwaHkiDQotLS0NCg0KKipIb3cgaGVhbHRoeSBpcyBTdGFyYnVja3M/KioNCg0KKipQcm9qZWN0IEF1dGhvcioqDQoNCkt5bGUgTXVycGh5DQoNCioqSW50cm9kdWN0aW9uKioNCg0KU3RhcmJ1Y2tzIGhhcyBiZWNvbWUgc29tZXRoaW5nIG9mIGEgZ2xvYmFsIHBoZW5vbWVub24gd2l0aCBob3cgbWFueSBwZW9wbGUgb3JkZXIgU3RhcmJ1Y2tzIGV2ZXJ5ZGF5LiBUaGUgcXVlc3Rpb24gbm8gb25lIHNlZW1zIHRvIGJlIGFza2luZyBpcyB3aGF0IGFyZSB0aGUgbnV0cml0aW9uYWwgdmFsdWVzIG9mIHlvdXIgZmF2b3JpdGUgU3RhcmJ1Y2tzIGRyaW5rcy4gQXMgd2VsbCBhcyB3aGF0IGNhdGVnb3J5IG9mIFN0YXJidWNrcyBiZXZlcmFnZXMgYXJlIHRoZSBiZXN0IGZvciB5b3U/DQoNCi1EbyBTdGFyYnVja3MgZHJpbmtzIGNvbnRhaW4gdG9vIG11Y2ggc3VnYXIgZm9yIHlvdSBkYWlseSBpbnRha2U/DQoNCi1EbyB0aGUgc2ltcGxlIHRlYXMgcHJvdmlkZSBsZXNzIHN1Z2FyIGFuZCBmYXQgdGhlbiB0aGUgc2lnbmF0dXJlIGRyaW5rcyBkbz8NCg0KLUlzIHRoZSBjYWZmZWluZSBhbmQgc2F0dXJhdGVkIGZhdHMgaW4gdGhlaXIgZHJpbmtzIGFjY2VwdGFibGUgZm9yIHJlZ3VsYXIgaGVhbHRoIGhhYml0cz8NCg0KKipQcmVyZXF1aXNpdGVzKioNCg0KYGBge3J9DQpsaWJyYXJ5KHRpZHl2ZXJzZSkNCmxpYnJhcnkoZHBseXIpDQoNCmBgYA0KDQoqKmRhdGFzZXQqKg0KYGBge3IsIG1lc3NhZ2U9RkFMU0UsIHdhcm5pbmc9RkFMU0V9DQpzdGFyYnVja3MgPC0gcmVhZF9jc3YoImh0dHBzOi8vcmF3LmdpdGh1YnVzZXJjb250ZW50LmNvbS9yZWlzYW5hci9kYXRhc2V0cy9tYXN0ZXIvc3RhcmJ1Y2tzLmNzdiIpDQpgYGANCg0KKipVbmktdmFyaWF0ZSBFeHBsb3JhdGlvbioqDQoNCmBgYHtyfQ0KcyA8LSBzdGFyYnVja3MgJT4lDQogIGdyb3VwX2J5KEJldmVyYWdlX2NhdGVnb3J5KSAlPiUNCiAgc3VtbWFyaXNlKGF2Z3N1ZyA8LSBtZWFuKGBTdWdhcnMgKGcpYCwgbmEucm0gPSBUUlVFKSkNCnMNCmBgYA0KDQoNCg0KDQpUaGlzIGlzIHdoZXJlIHRoZSBmaW5hbCBwcm9qZWN0IHJlcG9ydCB3cml0ZS11cCBnb2VzLiANCg0KDQpCZWZvcmUgeW91IHN1Ym1pdCwgbWFrZSBzdXJlIGV2ZXJ5dGhpbmcgcnVucyBhcyBleHBlY3RlZC4NCg0KWW91IGNhbiBhZGQgc2VjdGlvbnMgYXMgeW91IHNlZSBmaXQuIE1ha2Ugc3VyZSB5b3UgaGF2ZSBhIHNlY3Rpb24gY2FsbGVkICJJbnRyb2R1Y3Rpb24iIGF0IHRoZSBiZWdpbm5pbmcgYW5kIGEgc2VjdGlvbiBjYWxsZWQgIkNvbmNsdXNpb24iIGF0IHRoZSBlbmQuIFRoZSByZXN0IGlzIHVwIHRvIHlvdSENCg0KX01ha2UgdXNlIG9mIHlvdXIga25vd2xlZGdlIG9mIE1hcmtkb3duIHRvIGFwcHJvcHJpYXRlbHkgdHlwZXNldCB0aGlzIHJlcG9ydCFf</div>
+<div id="rmd-source-code">LS0tDQp0aXRsZTogIkZpbmFsIFJlcG9ydCBmb3IgSW50cm8gdG8gRGF0YSBTY2llbmNlIg0Kb3V0cHV0OiBodG1sX25vdGVib29rDQpOYW1lOiAiS3lsZSBNdXJwaHkiDQotLS0NCg0KKipIb3cgaGVhbHRoeSBpcyBTdGFyYnVja3M/KioNCg0KKipQcm9qZWN0IEF1dGhvcioqDQoNCkt5bGUgTXVycGh5DQoNCioqSW50cm9kdWN0aW9uKioNCg0KU3RhcmJ1Y2tzIGhhcyBiZWNvbWUgc29tZXRoaW5nIG9mIGEgZ2xvYmFsIHBoZW5vbWVub24gd2l0aCBob3cgbWFueSBwZW9wbGUgb3JkZXIgU3RhcmJ1Y2tzIGV2ZXJ5ZGF5LiBUaGUgcXVlc3Rpb24gbm8gb25lIHNlZW1zIHRvIGJlIGFza2luZyBpcyB3aGF0IGFyZSB0aGUgbnV0cml0aW9uYWwgdmFsdWVzIG9mIHlvdXIgZmF2b3JpdGUgU3RhcmJ1Y2tzIGRyaW5rcy4gQXMgd2VsbCBhcyB3aGF0IGNhdGVnb3J5IG9mIFN0YXJidWNrcyBiZXZlcmFnZXMgYXJlIHRoZSBiZXN0IGZvciB5b3U/DQoNCi1EbyBTdGFyYnVja3MgZHJpbmtzIGNvbnRhaW4gdG9vIG11Y2ggc3VnYXIgZm9yIHlvdSBkYWlseSBpbnRha2U/DQoNCi1EbyB0aGUgc2ltcGxlIHRlYXMgcHJvdmlkZSBsZXNzIHN1Z2FyIGFuZCBmYXQgdGhlbiB0aGUgc2lnbmF0dXJlIGRyaW5rcyBkbz8NCg0KLUlzIHRoZSBDaG9sZXN0ZXJvbCBpbiB0aGVpciBkcmlua3MgYWNjZXB0YWJsZSBmb3IgcmVndWxhciBoZWFsdGggaGFiaXRzPw0KDQpPdXIgZGF0YSBzZXQgZXhwbG9yZXMgMjIxIGRpZmZlcmVudCBkcmlua3Mgd2l0aCBjaGFyYWN0ZXJpc3RpY3MgbGlrZSBzYXR1cmF0ZWQgZmF0LCBjYWZmZWluZSwgc3VnYXJzLCBhbmQgcHJvdGVpbiBwZXJjZW50YWdlLg0KDQoqKlByZXJlcXVpc2l0ZXMqKg0KDQpgYGB7cn0NCmxpYnJhcnkodGlkeXZlcnNlKQ0KbGlicmFyeShkcGx5cikNCg0KYGBgDQoNCioqZGF0YXNldCoqDQpgYGB7ciwgbWVzc2FnZT1GQUxTRSwgd2FybmluZz1GQUxTRX0NCnN0YXJidWNrcyA8LSByZWFkLmNzdignLi4vZGF0YS9zdGFyYnVja3MuY3N2JykNCmBgYA0KDQoqKlVuaS12YXJpYXRlIEV4cGxvcmF0aW9uKioNCg0KQXZlcmFnZSBzdWdhciBhbW91bnQgaW4gZ3JhbXMgLSBFdmVyeW9uZSBsb3ZlcyB0aGVpciBmYXZvcml0ZSBmcmFwcCBmcm9tIFN0YXJidWNrcyB1bnRpbCB0aGV5IHJlYWxpemUgaXRzIGFjdHVhbGx5IHVuaGVhbHRoeSwgSW4gdGVybXMgb2YgYWRkZWQgc3VnYXJzIGluIGdyYW1zIGZyYXBwdWNpbm9zIGhhdmUgYWxtb3N0IGRvdWJsZSB0aGUgcmVjb21tZW5kZWQgaGVhbHRoeSBhbW91bnQgcGVyIGRheSBvZiAyNCBncmFtcyBmb3Igd29tZW4gYW5kIDM2IGdyYW1zIGZvciBtZW4uDQoNCioqU3VnYXJzKioNCmBgYHtyfQ0KcyA8LSBzdGFyYnVja3MgJT4lDQogIGdyb3VwX2J5KEJldmVyYWdlX2NhdGVnb3J5KSAlPiUNCiAgc3VtbWFyaXNlKGF2Z3N1ZyA8LSBtZWFuKFN1Z2Fycy4uZy4sIG5hLnJtID0gVFJVRSkpDQpzDQpgYGANCioqQ2hvbGVzdGVyb2wqKg0KDQpUYWtpbmcgYSBsb29rIGF0IHRoZSBhdmVyYWdlIGNob2xlc3Rlcm9sIGNvdW50IGluIHRoZWlyIGRyaW5rcyBjYW4gZWFzaWx5IGNvbnRyaWJ1dGUgdG8gZWFybHkgaGVhcnQgZGlzZWFzZSwgc3RhcnRpbmcgeW91ciBkYXkgd2l0aCA0MiBtZyBvZiBjaG9sZXN0ZXJvbCBpcyBub3QgYSBncmVhdCBzdGFydCB0byB5b3VyIGRheS4gVGhlIHJlY29tbWVuZGVkIGFtb3VudCBiZWluZyBhcHByb3ggMjAwIG1nIGFuZCBldmVuIHRoYXQgaXNuJ3QgaGVhbHRoeS4gRXZlbiBpZiB5b3Ugd2VyZSB0byBzdGFydCB3aXRoIHNvbWV0aGluZyBsaWtlIGEgdGVhIGRyaW5rIGl0IGNhbiBjb250cmlidXRlIHRvIGxvbmcgdGVybSBoZWFsdGggZWZmZWN0cyBsaWtlIGhlYXJ0IGRpc2Vhc2UuDQoNCmBgYHtyfQ0KcyA8LSBzdGFyYnVja3MgJT4lDQogIGdyb3VwX2J5KEJldmVyYWdlX2NhdGVnb3J5KSAlPiUNCiAgc3VtbWFyaXNlKGF2Z2Nob2wgPC0gbWVhbihDaG9sZXN0ZXJvbC4ubWcuKSkNCnMNCiAgDQpgYGANCg0KKipDYWZmZWluZSoqDQoNCkNhZmZlaW5lIGJlaW5nIG1vc3QgcGVvcGxlcyBjb25jZXJuIHdoZW4gaXQgY29tZXMgdG8gaGVhbHRoIGNvbmNlcm5zIG9mIGNvZmZlZSB0aGUgYXZlcmFnZXMgc3RheSBwcmV0dHkgbG93IGZvciBldmVyeXRoaW5nIG90aGVyIHRoYW4ganVzdCB0aGVpciByZWd1bGFyIGNvZmZlZS4gVGhlIGF2ZXJhZ2UgaGVhbHRoeSBhZHVsdCBnZW5lcmFsbHkgaXMgc2FmZSB0byBjb25zdW1lIDIwMCBtZyBvZiBjYWZmZWluZSBhIGRheSBzbyBhbnl0aGluZyBtb3JlIHRoYW4gMSBjdXAgYSBkYXkgY2FuIGJlIHVuc2FmZS4gDQpgYGB7cn0NCnMgPC0gc3RhcmJ1Y2tzICU+JQ0KICBncm91cF9ieShCZXZlcmFnZV9jYXRlZ29yeSkgJT4lDQogIHN1bW1hcmlzZShhdmdjYWYgPC0gbWVhbihDYWZmZWluZS4ubWcuLCBuYS5ybSA9IFRSVUUpKQ0Kcw0KYGBgDQoNCg0KDQoNClRoaXMgaXMgd2hlcmUgdGhlIGZpbmFsIHByb2plY3QgcmVwb3J0IHdyaXRlLXVwIGdvZXMuIA0KDQoNCkJlZm9yZSB5b3Ugc3VibWl0LCBtYWtlIHN1cmUgZXZlcnl0aGluZyBydW5zIGFzIGV4cGVjdGVkLg0KDQpZb3UgY2FuIGFkZCBzZWN0aW9ucyBhcyB5b3Ugc2VlIGZpdC4gTWFrZSBzdXJlIHlvdSBoYXZlIGEgc2VjdGlvbiBjYWxsZWQgIkludHJvZHVjdGlvbiIgYXQgdGhlIGJlZ2lubmluZyBhbmQgYSBzZWN0aW9uIGNhbGxlZCAiQ29uY2x1c2lvbiIgYXQgdGhlIGVuZC4gVGhlIHJlc3QgaXMgdXAgdG8geW91IQ0KDQpfTWFrZSB1c2Ugb2YgeW91ciBrbm93bGVkZ2Ugb2YgTWFya2Rvd24gdG8gYXBwcm9wcmlhdGVseSB0eXBlc2V0IHRoaXMgcmVwb3J0IV8=</div>
 
 
 

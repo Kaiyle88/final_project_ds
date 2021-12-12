@@ -18,7 +18,9 @@ Starbucks has become something of a global phenomenon with how many people order
 
 -Do the simple teas provide less sugar and fat then the signature drinks do?
 
--Is the caffeine and saturated fats in their drinks acceptable for regular health habits?
+-Is the Cholesterol in their drinks acceptable for regular health habits?
+
+Our data set explores 221 different drinks with characteristics like saturated fat, caffeine, sugars, and protein percentage.
 
 **Prerequisites**
 
@@ -30,15 +32,39 @@ library(dplyr)
 
 **dataset**
 ```{r, message=FALSE, warning=FALSE}
-starbucks <- read_csv("https://raw.githubusercontent.com/reisanar/datasets/master/starbucks.csv")
+starbucks <- read.csv('../data/starbucks.csv')
 ```
 
 **Uni-variate Exploration**
 
+Average sugar amount in grams - Everyone loves their favorite frapp from Starbucks until they realize its actually unhealthy, In terms of added sugars in grams frappucinos have almost double the recommended healthy amount per day of 24 grams for women and 36 grams for men.
+
+**Sugars**
 ```{r}
 s <- starbucks %>%
   group_by(Beverage_category) %>%
-  summarise(avgsug <- mean(`Sugars (g)`, na.rm = TRUE))
+  summarise(avgsug <- mean(Sugars..g., na.rm = TRUE))
+s
+```
+**Cholesterol**
+
+Taking a look at the average cholesterol count in their drinks can easily contribute to early heart disease, starting your day with 42 mg of cholesterol is not a great start to your day. The recommended amount being approx 200 mg and even that isn't healthy. Even if you were to start with something like a tea drink it can contribute to long term health effects like heart disease.
+
+```{r}
+s <- starbucks %>%
+  group_by(Beverage_category) %>%
+  summarise(avgchol <- mean(Cholesterol..mg.))
+s
+  
+```
+
+**Caffeine**
+
+Caffeine being most peoples concern when it comes to health concerns of coffee the averages stay pretty low for everything other than just their regular coffee. The average healthy adult generally is safe to consume 200 mg of caffeine a day so anything more than 1 cup a day can be unsafe. 
+```{r}
+s <- starbucks %>%
+  group_by(Beverage_category) %>%
+  summarise(avgcaf <- mean(Caffeine..mg., na.rm = TRUE))
 s
 ```
 
