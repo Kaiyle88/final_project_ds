@@ -30,7 +30,7 @@ library(dplyr)
 
 ```
 
-**dataset**
+**Data Set**
 ```{r, message=FALSE, warning=FALSE}
 starbucks <- read.csv('../data/starbucks.csv')
 ```
@@ -68,6 +68,20 @@ s <- starbucks %>%
 s
 ```
 
+**Bi-Variate Exploration**
+
+Looking at some characteristics comparing the "healthiest" option vs. the most unhealthy option.
+
+**Coffee vs. Frappucino Blended Coffee**
+
+```{r}
+s <- starbucks %>%
+  group_by(Beverage_category) %>%
+  filter(Beverage_category %in% c("Coffee", "FrappuccinoÂ® Blended Coffee")) %>%
+  mutate(avgsug <- mean(Sugars..g., na.rm = TRUE)) %>%
+  mutate(avgcaf <- mean(Caffeine..mg., na.rm = TRUE)) 
+s
+```
 
 
 
