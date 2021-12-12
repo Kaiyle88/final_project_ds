@@ -14,19 +14,18 @@ Kyle Murphy
 
 Starbucks has become something of a global phenomenon with how many people order Starbucks everyday. The question no one seems to be asking is what are the nutritional values of your favorite Starbucks drinks. As well as what category of Starbucks beverages are the best for you?
 
--Is coffee as bad as everyone says it is for you or are their frappuccionos worse?
+-Do Starbucks drinks contain too much sugar for you daily intake?
 
 -Do the simple teas provide less sugar and fat then the signature drinks do?
 
--How about the shaken ice beverages vs smoothies in terms of calorie count and sugar?
+-Is the caffeine and saturated fats in their drinks acceptable for regular health habits?
 
 **Prerequisites**
 
 ```{r}
 library(tidyverse)
 library(dplyr)
-library(ggplot2)
-library(scales)
+
 ```
 
 **dataset**
@@ -34,6 +33,14 @@ library(scales)
 starbucks <- read_csv("https://raw.githubusercontent.com/reisanar/datasets/master/starbucks.csv")
 ```
 
+**Uni-variate Exploration**
+
+```{r}
+s <- starbucks %>%
+  group_by(Beverage_category) %>%
+  summarise(avgsug <- mean(`Sugars (g)`, na.rm = TRUE))
+s
+```
 
 
 
