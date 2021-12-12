@@ -4,7 +4,7 @@
 
 Team members: 
 
-- Student 1: [Rei Sanchez-Arias](mailto:kmurphy1253@floridapoly.edu)
+- Student 1: [Kyle Murphy](mailto:kmurphy1253@floridapoly.edu)
 
 
 **Summary**
