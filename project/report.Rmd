@@ -1,7 +1,42 @@
 ---
 title: "Final Report for Intro to Data Science"
 output: html_notebook
+Name: "Kyle Murphy"
 ---
+
+**How healthy is Starbucks?**
+
+**Project Author**
+
+Kyle Murphy
+
+**Introduction**
+
+Starbucks has become something of a global phenomenon with how many people order Starbucks everyday. The question no one seems to be asking is what are the nutritional values of your favorite Starbucks drinks. As well as what category of Starbucks beverages are the best for you?
+
+-Is coffee as bad as everyone says it is for you or are their frappuccionos worse?
+
+-Do the simple teas provide less sugar and fat then the signature drinks do?
+
+-How about the shaken ice beverages vs smoothies in terms of calorie count and sugar?
+
+**Prerequisites**
+
+```{r}
+library(tidyverse)
+library(dplyr)
+library(ggplot2)
+library(scales)
+```
+
+**dataset**
+```{r, message=FALSE, warning=FALSE}
+starbucks <- read_csv("https://raw.githubusercontent.com/reisanar/datasets/master/starbucks.csv")
+```
+
+
+
+
 
 This is where the final project report write-up goes. 
 
