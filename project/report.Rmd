@@ -31,13 +31,21 @@ library(dplyr)
 ```
 
 **Data Set**
+Loading the data from the working directory, caffeine has values that varies so those data variables were excluded to get more accurate averages.
 ```{r, message=FALSE, warning=FALSE}
 starbucks <- read.csv('../data/starbucks.csv')
 ```
 
+**Data Exploration**
+```{r}
+summary(starbucks)
+```
+
+
+
 **Uni-variate Exploration**
 
-Average sugar amount in grams - Everyone loves their favorite frapp from Starbucks until they realize its actually unhealthy, In terms of added sugars in grams frappucinos have almost double the recommended healthy amount per day of 24 grams for women and 36 grams for men.
+Average sugar amount in grams - Everyone loves their favorite frappuccino from Starbucks until they realize its actually unhealthy, In terms of added sugars in grams frappucinos have almost double the recommended healthy amount per day of 24 grams for women and 36 grams for men.
 
 **Sugars**
 ```{r}
@@ -73,13 +81,26 @@ s
 Looking at some characteristics comparing the "healthiest" option vs. the most unhealthy option.
 
 **Coffee vs. Frappucino Blended Coffee**
+Comparing coffee which has one of the more healthy nutritional values without addons like cream and sugar, one cup of this a day could be healthy for you as long as you aren't drinking too much due to the caffeine amounts. Then looking at the Frappucino Blended coffee which has the highest cholesterol, sugar averages across the board. It seems that one cup of coffee a day might be best and even really healthy for you compared to the special frappucinos. 
 
 ```{r}
 s <- starbucks %>%
-  group_by(Beverage_category) %>%
+  group_by(Beverage) %>%
   filter(Beverage_category %in% c("Coffee", "FrappuccinoÂ® Blended Coffee")) %>%
-  mutate(avgsug <- mean(Sugars..g., na.rm = TRUE)) %>%
-  mutate(avgcaf <- mean(Caffeine..mg., na.rm = TRUE)) 
+  mutate(avgsug = mean(Sugars..g., na.rm = TRUE)) %>%
+  mutate(avgcaf = mean(Caffeine..mg., na.rm = TRUE)) %>%
+  summarise(avgcaf, avgsug)
+s
+```
+
+**What is the best coffee**
+
+Regular coffee with no sugar no cream can be fairly healthy for you. The different sizes can impact how many cups a day you should drink from Starbucks without reaching an unsafe caffeine limit. Short would be 2 cups, Tall would be one, grande and Venti would also be one cup a day to stay safe.
+```{r}
+s <- starbucks %>%
+  group_by(Beverage) %>%
+  filter(Beverage_category == "Coffee") %>%
+  select(Caffeine..mg., Beverage_prep) 
 s
 ```
 
