@@ -27,6 +27,7 @@ Our data set explores 221 different drinks with characteristics like saturated f
 ```{r}
 library(tidyverse)
 library(dplyr)
+library(ggplot2)
 
 ```
 
@@ -72,7 +73,7 @@ Caffeine being most peoples concern when it comes to health concerns of coffee t
 ```{r}
 s <- starbucks %>%
   group_by(Beverage_category) %>%
-  summarise(avgcaf <- mean(Caffeine..mg., na.rm = TRUE))
+  summarise(avgcaf = mean(Caffeine..mg., na.rm = TRUE))
 s
 ```
 
@@ -90,6 +91,7 @@ s <- starbucks %>%
   mutate(avgsug = mean(Sugars..g., na.rm = TRUE)) %>%
   mutate(avgcaf = mean(Caffeine..mg., na.rm = TRUE)) %>%
   summarise(avgcaf, avgsug)
+  
 s
 ```
 
@@ -105,12 +107,8 @@ s
 ```
 
 
+**Data Analysis Conclusion**
 
-This is where the final project report write-up goes. 
+Starbucks is a very popular coffee shop and I doubt one generic analysis of their products will stop people from going, however it begs the question how healthy are the other fast food drinks and foods we consume. Over the years food seems to be getting unhealthier and unhealthier even something as simple as a frappucino from Starbucks can have monumental impacts on your health in the future. Which is something to keep in mind, 
 
 
-Before you submit, make sure everything runs as expected.
-
-You can add sections as you see fit. Make sure you have a section called "Introduction" at the beginning and a section called "Conclusion" at the end. The rest is up to you!
-
-_Make use of your knowledge of Markdown to appropriately typeset this report!_
